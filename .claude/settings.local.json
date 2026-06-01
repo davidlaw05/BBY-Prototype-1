@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"/Users/lisawong/Desktop/Claude Code/BBY Prototype 1/.claude\")",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(ls /usr/local/bin/python* /opt/homebrew/bin/python* 2>/dev/null; which python3.11 python3.12 python3.10 2>/dev/null)"
+    ]
+  }
+}

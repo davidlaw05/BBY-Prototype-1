@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bupa Health Insurance – Get a Quote</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bupa-blue: #005EB8;
+      --bupa-blue-dark: #004B93;
+      --bupa-teal-bg: #D5E8F5;
+      --sidebar-w: 285px;
+      --text-dark: #1a1a1a;
+      --text-mid: #333;
+      --text-muted: #555;
+      --border: #C8C8C8;
+      --radius: 4px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 15px;
+      color: var(--text-dark);
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── WRAPPER ── */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #fff;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main-layout {
+      display: flex;
+      flex: 1;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--bupa-teal-bg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar-top {
+      padding: 24px 24px 0 24px;
+      flex: 1;
+    }
+
+    .sidebar-logo {
+      display: block;
+      width: 68px;
+      margin-bottom: 28px;
+    }
+
+    .sidebar-logo svg { display: block; }
+
+    .sidebar-headline {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 32px;
+    }
+
+    .sidebar-phone-block {
+      margin-top: auto;
+      padding: 16px 24px 12px 24px;
+    }
+
+    .phone-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .phone-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #34A853;
+      flex-shrink: 0;
+    }
+
+    .phone-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .phone-hours {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .sidebar-illustration {
+      background: var(--bupa-teal-bg);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .sidebar-illustration img,
+    .sidebar-illustration svg {
+      height: 190px;
+      width: auto;
+    }
+
+    /* ── CONTENT AREA ── */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-row {
+      display: flex;
+      gap: 4px;
+      height: 5px;
+      margin: 16px 16px 0 16px;
+    }
+
+    .progress-seg {
+      flex: 1;
+      height: 5px;
+      background: #D6E4F7;
+      border-radius: 2px;
+    }
+
+    .progress-seg.active { background: var(--bupa-blue); }
+    .progress-seg.done   { background: var(--bupa-blue); }
+
+    /* ── FORM AREA ── */
+    .content-area {
+      max-width: 700px;
+    }
+
+    .form-area {
+      padding: 28px 48px 40px 48px;
+      flex: 1;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      color: var(--bupa-blue);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      text-decoration: none;
+    }
+
+    .back-btn:hover { text-decoration: underline; }
+
+    .part-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .form-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    .form-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 7px;
+    }
+
+    .form-input, .form-select {
+      display: block;
+      width: 100%;
+      max-width: 360px;
+      height: 44px;
+      padding: 0 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 15px;
+      color: var(--text-dark);
+      background: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--bupa-blue);
+      box-shadow: 0 0 0 3px rgba(0,94,184,0.15);
+    }
+
+    .select-wrap {
+      position: relative;
+      max-width: 360px;
+    }
+
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid #555;
+      pointer-events: none;
+    }
+
+    .select-wrap .form-select { width: 100%; }
+
+    /* DOB row */
+    .dob-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dob-row .form-group { flex: 1; }
+    .dob-row .form-group:last-child { flex: 2; }
+
+    .dob-row .form-input {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    /* Privacy link */
+    .privacy-note {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 26px;
+    }
+
+    .privacy-note a {
+      color: var(--bupa-blue);
+      text-decoration: underline;
+    }
+
+    /* CTA button */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bupa-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+
+    .cta-btn:hover { background: var(--bupa-blue-dark); }
+
+    .cta-btn svg { flex-shrink: 0; }
+
+    /* Retrieve link */
+    .retrieve-link-row {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .retrieve-link-row a {
+      color: var(--bupa-blue);
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ── EXISTING CONDITIONS SCREEN ── */
+    .info-body {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .info-body + .info-body { margin-top: 8px; }
+
+    .info-body strong { font-weight: 700; }
+
+    .checkbox-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 22px 0;
+      max-width: 500px;
+      cursor: pointer;
+    }
+
+    .checkbox-card:has(input:checked) {
+      border-color: var(--bupa-blue);
+      background: #EEF5FC;
+    }
+
+    .checkbox-card input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      accent-color: var(--bupa-blue);
+      cursor: pointer;
+    }
+
+    .checkbox-card label {
+      font-size: 15px;
+      color: var(--text-dark);
+      cursor: pointer;
+      line-height: 1.45;
+    }
+
+    /* ── ADDRESS SCREEN ── */
+    .address-manual-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--bupa-blue);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 6px 0 26px 0;
+      cursor: pointer;
+    }
+
+    .address-manual-link:hover { text-decoration: underline; }
+
+    /* ── ADDRESS CONFIRMED SCREEN ── */
+    .address-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      max-width: 500px;
+      margin-bottom: 18px;
+    }
+
+    .address-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .address-card-lines {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .edit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text-dark);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .edit-btn:hover {
+      border-color: var(--bupa-blue);
+      background: #EEF5FC;
+    }
+
+    .info-box {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      max-width: 500px;
+      margin-bottom: 18px;
+      background: #F8FBFF;
+    }
+
+    .info-box-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .info-box-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .info-box-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.35;
+    }
+
+    .info-box-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .info-box-body + .info-box-body { margin-top: 6px; }
+
+    .eligibility-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      max-width: 500px;
+      margin-bottom: 22px;
+    }
+
+    .eligibility-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 16px;
+    }
+
+    .eligibility-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .eligibility-list li::before {
+      content: '·';
+      color: var(--bupa-blue);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0D1846;
+      border-top: none;
+      padding: 32px 40px 0 40px;
+      color: #fff;
+    }
+
+    .footer-privacy {
+      max-width: 900px;
+      margin-bottom: 28px;
+    }
+
+    .footer-privacy h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .footer-privacy p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+
+    .footer-privacy a { color: #7DB8E8; }
+
+    .footer-issue {
+      margin-bottom: 24px;
+    }
+
+    .footer-issue h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .footer-issue-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .report-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius);
+      background: transparent;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .si-yt  { background: #FF0000; }
+    .si-li  { background: #0A66C2; }
+    .si-tw  { background: #1DA1F2; }
+    .si-fb  { background: #1877F2; }
+    .si-ig  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    .footer-nav a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .footer-nav a:hover { color: #fff; text-decoration: underline; }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── SCREEN VISIBILITY ── */
+    .screen { display: none; }
+    .screen.active { display: flex; flex-direction: column; flex: 1; }
+
+    /* ── INLINE MANUAL ADDRESS FIELDS ── */
+    .manual-address-fields { display: none; }
+    .manual-address-fields.open { display: block; }
+
+    /* Postcode input narrow */
+    .input-narrow {
+      max-width: 180px !important;
+    }
+
+    /* Select address wide */
+    .select-address-wrap { max-width: 500px; }
+    .select-address-wrap .form-select { max-width: 100%; }
+
+    /* Retrieve form quote ID */
+    .form-input.full-w { max-width: 500px; }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="main-layout">
+
+    <!-- ═══════════════ SIDEBAR ═══════════════ -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <!-- Bupa Logo SVG -->
+        <div class="sidebar-logo">
+          <img src="Bupa Logo.svg" alt="Bupa" width="68" height="68" />
+        </div>
+
+        <!-- Dynamic sidebar content -->
+        <div id="sidebar-content-new">
+          <p class="sidebar-headline">Start your journey to private healthcare</p>
+          <p class="sidebar-body">We're going to ask for your details, a few health questions, and your cover options.</p>
+        </div>
+
+        <div id="sidebar-content-returning" style="display:none">
+          <p class="sidebar-headline">Welcome back, Alex!</p>
+          <p class="sidebar-body">It's good to see you again. Let's get your quote back up for you to review.</p>
+        </div>
+      </div>
+
+      <div class="sidebar-phone-block">
+        <div class="phone-status"><span class="phone-dot"></span> Open</div>
+        <div class="phone-number">0808 250 7790</div>
+        <div class="phone-hours">Open today 8am–8pm</div>
+      </div>
+
+      <!-- Illustration -->
+      <div class="sidebar-illustration">
+
+        <img id="illus-new" src="customer-sitting-holding phone.png" alt="" style="height:190px;width:auto;display:block;object-fit:contain;margin-bottom:0">
+
+        </svg>
+      </div>
+    </aside>
+
+    <!-- ═══════════════ CONTENT AREA ═══════════════ -->
+    <div class="content-area">
+
+      <!-- ┌─── SCREEN 1: NAME ───┐ -->
+      <div class="screen active" id="screen-name">
+        <div class="progress-bar-row">
+          <div class="progress-seg active"></div>
+          <div class="progress-seg"></div>
+          <div class="progress-seg"></div>
+          <div class="progress-seg"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goBack()">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 1 of 4</span>
+          </div>
+
+          <h1 class="form-title">Let's begin with your name</h1>
+
+          <div class="form-group">
+            <label class="form-label" for="title">Title</label>
+            <div class="select-wrap">
+              <select class="form-select" id="title">
+                <option value="">Choose title</option>
+                <option>Mr</option><option>Mrs</option><option>Miss</option>
+                <option>Ms</option><option>Mx</option><option>Dr</option>
+                <option>Prof</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="first-name">First name</label>
+            <input class="form-input" type="text" id="first-name" autocomplete="given-name" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="last-name">Last name</label>
+            <input class="form-input" type="text" id="last-name" autocomplete="family-name" />
+          </div>
+
+          <p class="privacy-note">
+            Please make sure you are happy with our <a href="#" onclick="return false">privacy information</a>
+          </p>
+
+          <button class="cta-btn" onclick="goTo('screen-conditions')">
+            Next
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <p class="retrieve-link-row">
+            Already have a quote?
+            <a href="#" onclick="goTo('screen-retrieve'); return false">Retrieve your quote</a>
+          </p>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 1 ───┘ -->
+
+      <!-- ┌─── SCREEN 2: RETRIEVE QUOTE ───┐ -->
+      <div class="screen" id="screen-retrieve">
+        <div class="progress-bar-row">
+          <div class="progress-seg active"></div>
+          <div class="progress-seg"></div>
+          <div class="progress-seg"></div>
+          <div class="progress-seg"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goTo('screen-name')">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 1 of 4</span>
+          </div>
+
+          <h1 class="form-title">Retrieve your Bupa health insurance quote</h1>
+          <p class="form-subtitle">Simply enter your details below and we will retrieve your quote.</p>
+          <p class="form-subtitle" style="margin-bottom:20px">These details can be found in your quote email or quote pack we sent you in the post.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="quote-id">Quote ID</label>
+            <input class="form-input full-w" type="text" id="quote-id" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date of birth</label>
+            <div class="dob-row">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="dob-day" style="font-weight:400;font-size:13px;color:#555">Day</label>
+                <input class="form-input" type="text" id="dob-day" placeholder="XX" maxlength="2" />
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="dob-month" style="font-weight:400;font-size:13px;color:#555">Month</label>
+                <input class="form-input" type="text" id="dob-month" placeholder="XX" maxlength="2" />
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="dob-year" style="font-weight:400;font-size:13px;color:#555">Year</label>
+                <input class="form-input" type="text" id="dob-year" placeholder="XXXX" maxlength="4" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="retrieve-postcode">Postcode</label>
+            <input class="form-input input-narrow" type="text" id="retrieve-postcode" />
+          </div>
+
+          <button class="cta-btn" onclick="activateReturningUser()">
+            Next
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 2 ───┘ -->
+
+      <!-- ┌─── SCREEN 3: EXISTING CONDITIONS ───┐ -->
+      <div class="screen" id="screen-conditions">
+        <div class="progress-bar-row">
+          <div class="progress-seg done"></div>
+          <div class="progress-seg active"></div>
+          <div class="progress-seg"></div>
+          <div class="progress-seg"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goTo('screen-name')">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 1 of 4</span>
+          </div>
+
+          <h1 class="form-title">Existing medical conditions</h1>
+
+          <p class="info-body">Your policy will not usually cover you for any existing conditions you have.</p>
+          <p class="info-body" style="margin-top:10px">These are injuries, illnesses or diseases you or anyone on your policy had <strong>before your policy started</strong>. It does not matter if you have been <strong>diagnosed or not</strong>.</p>
+          <p class="info-body" style="margin-top:10px">Our health insurance covers you for <strong>new issues</strong> you may have <strong>after your policy starts</strong>. This is the case with most health insurers.</p>
+          <p class="info-body" style="margin-top:10px">This is different to a medical history. We will ask for a medical history after you have bought your policy. You'll only need to do this once.</p>
+          <p class="info-body" style="margin-top:10px">We will tell you if anyone on your cover has any conditions that are not covered.</p>
+          <p class="info-body" style="margin-top:10px">Your medical history will not affect the price you pay.</p>
+
+          <label class="checkbox-card">
+            <input type="checkbox" id="conditions-read" />
+            <span>I've read and understood this information</span>
+          </label>
+
+          <button class="cta-btn" onclick="checkConditionsAndProceed()">
+            Next
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 3 ───┘ -->
+
+      <!-- ┌─── SCREEN 4: ADDRESS ENTRY ───┐ -->
+      <div class="screen" id="screen-address">
+        <div class="progress-bar-row">
+          <div class="progress-seg done"></div>
+          <div class="progress-seg done"></div>
+          <div class="progress-seg active"></div>
+          <div class="progress-seg"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goTo('screen-conditions')">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 1 of 4</span>
+          </div>
+
+          <h1 class="form-title" id="address-title">Thanks, <span id="user-first-name">Alex</span>. What's your home address?</h1>
+          <p class="form-subtitle" style="margin-bottom:22px">We use your address to find your nearest hospitals and clinics and to send you your quote pack.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="postcode">Postcode</label>
+            <input class="form-input input-narrow" type="text" id="postcode" placeholder="" />
+          </div>
+
+          <div class="form-group" id="address-select-group">
+            <label class="form-label" for="select-address">Select address</label>
+            <div class="select-address-wrap select-wrap">
+              <select class="form-select" id="select-address">
+                <option value="">Example input</option>
+                <option value="1">24 St Martin's Ave, Manchester, M1 1AB</option>
+                <option value="2">12 Baker Street, London, W1U 6TJ</option>
+                <option value="3">7 Victoria Road, Bristol, BS1 4RQ</option>
+                <option value="4">45 Princes Street, Edinburgh, EH2 2BY</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Manual address fields -->
+          <div class="manual-address-fields" id="manual-fields">
+            <div class="form-group">
+              <label class="form-label" for="addr-line1">Address line 1</label>
+              <input class="form-input" type="text" id="addr-line1" style="max-width:500px" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="addr-line2">Address line 2 (optional)</label>
+              <input class="form-input" type="text" id="addr-line2" style="max-width:500px" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="addr-town">Town or city</label>
+              <input class="form-input" type="text" id="addr-town" />
+            </div>
+          </div>
+
+          <a class="address-manual-link" onclick="toggleManual()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.5 1.5L12.5 4.5L4.5 12.5H1.5V9.5L9.5 1.5Z" stroke="#005EB8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M8 3L11 6" stroke="#005EB8" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            </svg>
+            Add address manually
+          </a>
+
+          <button class="cta-btn" onclick="goTo('screen-address-confirmed')">
+            Next
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 4 ───┘ -->
+
+      <!-- ┌─── SCREEN 5: ADDRESS CONFIRMED ───┐ -->
+      <div class="screen" id="screen-address-confirmed">
+        <div class="progress-bar-row">
+          <div class="progress-seg done"></div>
+          <div class="progress-seg done"></div>
+          <div class="progress-seg active"></div>
+          <div class="progress-seg"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goTo('screen-address')">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 1 of 4</span>
+          </div>
+
+          <h1 class="form-title">Thanks, <span id="user-first-name-2">Alex</span>. What's your home address?</h1>
+          <p class="form-subtitle" style="margin-bottom:22px">We use your address to find your nearest hospitals and clinics and to send you your quote pack.</p>
+
+          <!-- Address card -->
+          <div class="address-card">
+            <div class="address-card-title">Your address</div>
+            <div class="address-card-lines">
+              24 St Martin's Ave<br>
+              Manchester<br>
+              M1 1AB<br>
+              United Kingdom
+            </div>
+            <button class="edit-btn" onclick="goTo('screen-address')">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.5 1.5L12.5 4.5L4.5 12.5H1.5V9.5L9.5 1.5Z" stroke="#333" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M8 3L11 6" stroke="#333" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+
+          <!-- Hospital info box -->
+          <div class="info-box">
+            <div class="info-box-header">
+              <svg class="info-box-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="15" stroke="#005EB8" stroke-width="2" fill="#E8F4FF"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#005EB8" font-family="Arial" font-weight="bold" font-size="17">i</text>
+              </svg>
+              <span class="info-box-title">We have 15 hospitals and clinics within 10 miles of your address.</span>
+            </div>
+            <p class="info-box-body">As well as over 1300 hospitals and clinics across the UK and Central London.</p>
+            <p class="info-box-body" style="margin-top:6px">We'll tell you more about your nearest hospitals and clinics when choosing your level of hospital access later.</p>
+          </div>
+
+          <!-- Eligibility card -->
+          <div class="eligibility-card">
+            <ul class="eligibility-list">
+              <li>I'm a resident of the UK. The UK includes the Channel Islands and the Isle of Man.</li>
+              <li>I have been registered with a UK GP for at least 6 months, or I can provide full medical records in English.</li>
+              <li>I don't get paid or receive money or expenses for playing professional sports.</li>
+            </ul>
+            <label class="checkbox-card" style="border:none;padding:0;margin:0;max-width:100%">
+              <input type="checkbox" id="eligibility-read" />
+              <span>I have read and understood this information</span>
+            </label>
+          </div>
+
+          <button class="cta-btn" onclick="checkEligibilityAndProceed()">
+            Next
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 5 ───┘ -->
+
+      <!-- ┌─── SCREEN 6: COMPLETION PLACEHOLDER ───┐ -->
+      <div class="screen" id="screen-complete">
+        <div class="progress-bar-row">
+          <div class="progress-seg done"></div>
+          <div class="progress-seg done"></div>
+          <div class="progress-seg done"></div>
+          <div class="progress-seg active"></div>
+        </div>
+        <div class="form-area">
+          <div class="nav-row">
+            <button class="back-btn" onclick="goTo('screen-address-confirmed')">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#005EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+          
+            <span class="part-label">Part 2 of 4</span>
+          </div>
+
+          <h1 class="form-title">Your details are saved</h1>
+          <p class="info-body" style="margin-bottom:24px">We've noted your details. In the next steps we'll ask you about your health and your cover preferences.</p>
+
+          <div style="background:#EEF8EE;border:1.5px solid #4CAF50;border-radius:4px;padding:16px 20px;max-width:500px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-start">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" fill="#4CAF50"/><path d="M6 11l3.5 3.5L16 8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <p style="font-weight:700;font-size:15px;margin-bottom:3px">Part 1 complete</p>
+              <p style="font-size:14px;color:#555">Your personal details have been saved successfully.</p>
+            </div>
+          </div>
+
+          <button class="cta-btn" onclick="alert('This prototype covers Part 1 of 4. The next parts would continue the quote journey.')">
+            Continue to Part 2
+            <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- └─── END SCREEN 6 ───┘ -->
+
+    </div><!-- /content-area -->
+  </div><!-- /main-layout -->
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="footer-privacy">
+      <h3>Privacy information</h3>
+      <p>We recognise that when you give us personal information (which includes health information) you're trusting us to take good care of it. Please see our <a href="#" onclick="return false">Privacy Notice</a> for more information about how we collect, use and protect your data.</p>
+      <p>Bupa health insurance is provided by Bupa Insurance Limited. Registered in England and Wales No. 3956433. Bupa Insurance Limited is authorised by the Prudential Regulation Authority and regulated by the Financial Conduct Authority. Arranged and administered by Bupa Insurance Services Limited, which is authorised and regulated by the Financial Conduct Authority. Registered in England and Wales No. 382985. Registered office: 1 Angel Court, London EC2R 7HJ.</p>
+      <p>^ We may record or monitor our calls. Lines are open Monday to Friday 8am to 8pm and Saturday 9am to 12.30pm.</p>
+    </div>
+
+    <div class="footer-issue">
+      <h3>Having problems getting a quote?</h3>
+      <div class="footer-issue-row">
+        <a class="report-btn" href="#" onclick="return false">
+          Report a technical issue
+          <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="social-icons">
+          <a class="social-icon si-yt" href="#" onclick="return false" title="YouTube">
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="white"><path d="M17.2 2.2A2.2 2.2 0 0015.6.6C14.3.3 9 .3 9 .3S3.7.3 2.4.6A2.2 2.2 0 00.8 2.2C.5 3.5.5 7 .5 7s0 3.5.3 4.8A2.2 2.2 0 002.4 13.4C3.7 13.7 9 13.7 9 13.7s5.3 0 6.6-.3a2.2 2.2 0 001.6-1.6c.3-1.3.3-4.8.3-4.8s0-3.5-.3-4.8zM7.2 10V4l5.5 3-5.5 3z"/></svg>
+          </a>
+          <a class="social-icon si-li" href="#" onclick="return false" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M0 1.8C0 .8.8 0 1.8 0h12.4C15.2 0 16 .8 16 1.8v12.4c0 1-.8 1.8-1.8 1.8H1.8C.8 16 0 15.2 0 14.2V1.8zM4.8 13.3V6.2H2.4v7.1h2.4zm-1.2-8C4.4 5.3 5.2 4.5 5.2 3.7S4.4 2.2 3.6 2.2 2 3 2 3.7s.8 1.6 1.6 1.6zm9.3 8V9.4c0-2.1-.5-3.7-2.9-3.7-1.2 0-2 .7-2.3 1.3h-.1V6.2H5.3v7.1h2.4V9.8c0-1 .2-2 1.5-2s1.3 1.1 1.3 2v3.5h2.4z"/></svg>
+          </a>
+          <a class="social-icon si-tw" href="#" onclick="return false" title="Twitter / X">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="white"><path d="M16 1.7a6.5 6.5 0 01-1.9.5A3.3 3.3 0 0015.5.2a6.5 6.5 0 01-2.1.8A3.3 3.3 0 009.8 0C7.9 0 6.4 1.5 6.4 3.4c0 .3 0 .5.1.7A9.3 9.3 0 011.1.6 3.4 3.4 0 002 5a3.3 3.3 0 01-1.5-.4v.1c0 1.6 1.1 3 2.7 3.3a3.3 3.3 0 01-1.5.1 3.3 3.3 0 003.1 2.3A6.6 6.6 0 010 11.7 9.3 9.3 0 005 13.3c6 0 9.3-5 9.3-9.3v-.4A6.6 6.6 0 0016 1.7z"/></svg>
+          </a>
+          <a class="social-icon si-fb" href="#" onclick="return false" title="Facebook">
+            <svg width="9" height="16" viewBox="0 0 9 16" fill="white"><path d="M5.8 16V8.7H8l.4-2.6H5.8V4.5c0-.7.2-1.3 1.3-1.3H8.5V.9A17 17 0 006.2.8C4 .8 2.5 2.2 2.5 4.7v1.4H.3v2.6h2.2V16h3.3z"/></svg>
+          </a>
+          <a class="social-icon si-ig" href="#" onclick="return false" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M8 0C5.8 0 5.5 0 4.7.1 1.7.2.2 1.7.1 4.7 0 5.5 0 5.8 0 8s0 2.5.1 3.3c.1 3 1.6 4.5 4.6 4.6.8.1 1.1.1 3.3.1s2.5 0 3.3-.1c3-.1 4.5-1.6 4.6-4.6.1-.8.1-1.1.1-3.3s0-2.5-.1-3.3C15.8 1.7 14.3.2 11.3.1 10.5 0 10.2 0 8 0zm0 1.4c2.2 0 2.4 0 3.3.1 2.3.1 3.2 1 3.3 3.3.1.9.1 1.1.1 3.2s0 2.4-.1 3.3c-.1 2.3-1 3.2-3.3 3.3-.9.1-1.1.1-3.3.1s-2.4 0-3.3-.1C2.4 14.5 1.5 13.6 1.5 11.3 1.4 10.4 1.4 10.2 1.4 8s0-2.4.1-3.3c.1-2.3 1-3.2 3.3-3.3C5.6 1.4 5.8 1.4 8 1.4zm0 2.4A4.2 4.2 0 003.8 8 4.2 4.2 0 008 12.2 4.2 4.2 0 0012.2 8 4.2 4.2 0 008 3.8zm0 6.9A2.7 2.7 0 015.3 8 2.7 2.7 0 018 5.3 2.7 2.7 0 0110.7 8 2.7 2.7 0 018 10.7zm4.4-7.1a1 1 0 100 2 1 1 0 000-2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div style="display:flex;align-items:center;gap:16px">
+        <img src="Bupa Logo.svg" alt="Bupa" width="52" height="52" />
+      </div>
+      <nav class="footer-nav">
+        <a href="#" onclick="return false">Careers</a>
+        <a href="#" onclick="return false">Privacy and cookies</a>
+        <a href="#" onclick="return false">Sitemap</a>
+        <a href="#" onclick="return false">Accessibility</a>
+        <a href="#" onclick="return false">Legal notices</a>
+      </nav>
+      <span class="footer-copy">© Bupa 2022</span>
+    </div>
+  </footer>
+
+</div><!-- /page-wrapper -->
+
+<script>
+  const screens = [
+    'screen-name',
+    'screen-retrieve',
+    'screen-conditions',
+    'screen-address',
+    'screen-address-confirmed',
+    'screen-complete'
+  ];
+
+  let currentScreen = 'screen-name';
+  let isReturningUser = false;
+
+  function goTo(id) {
+    document.getElementById(currentScreen).classList.remove('active');
+    document.getElementById(id).classList.add('active');
+    currentScreen = id;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateSidebar(id);
+  }
+
+  function goBack() {
+    const idx = screens.indexOf(currentScreen);
+    if (idx > 0) goTo(screens[idx - 1]);
+  }
+
+  function updateSidebar(screenId) {
+    const newContent = document.getElementById('sidebar-content-new');
+    const returningContent = document.getElementById('sidebar-content-returning');
+    const illusNew = document.getElementById('illus-new');
+    const illusMedical = document.getElementById('illus-medical');
+
+    illusNew.style.display = 'block';
+
+    if (isReturningUser) {
+      newContent.style.display = 'none';
+      returningContent.style.display = 'block';
+    } else {
+      newContent.style.display = 'block';
+      returningContent.style.display = 'none';
+    }
+
+    // Update name in address screens
+    const firstName = document.getElementById('first-name').value.trim() || 'Alex';
+    document.getElementById('user-first-name').textContent = firstName;
+    document.getElementById('user-first-name-2').textContent = firstName;
+  }
+
+  function activateReturningUser() {
+    isReturningUser = true;
+    goTo('screen-conditions');
+  }
+
+  function checkConditionsAndProceed() {
+    const cb = document.getElementById('conditions-read');
+    if (!cb.checked) {
+      cb.closest('.checkbox-card').style.borderColor = '#CC0000';
+      cb.closest('.checkbox-card').style.background = '#FFF3F3';
+      cb.focus();
+      return;
+    }
+    goTo('screen-address');
+  }
+
+  function checkEligibilityAndProceed() {
+    const cb = document.getElementById('eligibility-read');
+    if (!cb.checked) {
+      cb.closest('.checkbox-card').style.borderColor = '#CC0000';
+      cb.closest('.checkbox-card').style.background = '#FFF3F3';
+      cb.focus();
+      return;
+    }
+    goTo('screen-complete');
+  }
+
+  function toggleManual() {
+    const fields = document.getElementById('manual-fields');
+    const isOpen = fields.classList.toggle('open');
+    const addrGroup = document.getElementById('address-select-group');
+    addrGroup.style.display = isOpen ? 'none' : 'block';
+  }
+
+  // Reset checkbox card styling when user interacts
+  document.addEventListener('change', function(e) {
+    if (e.target.type === 'checkbox') {
+      const card = e.target.closest('.checkbox-card');
+      if (card) {
+        card.style.borderColor = '';
+        card.style.background = '';
+      }
+    }
+  });
+
+  // Postcode lookup simulation
+  document.getElementById('postcode').addEventListener('input', function() {
+    const addrSelect = document.getElementById('select-address');
+    if (this.value.length >= 3) {
+      addrSelect.parentElement.parentElement.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>

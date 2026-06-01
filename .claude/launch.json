@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bupa-prototype",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/lisawong/Desktop/Claude Code/BBY Prototype 1/serve.js"],
+      "port": 3456,
+      "autoPort": true
+    }
+  ]
+}
